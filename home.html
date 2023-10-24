@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StudySync Uploader</title>
+    <link rel="stylesheet" type="text/css" href="home.css" />
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-storage.js"></script>
+  
+    
+  </head>
+  <body>
+
+
+
+
+  
+
+
+    <div class="ImageUpload">
+      <input type="file" class="inp" onchange="getImageData(event)" />
+      <button onclick="selectImage()" class="selectImage">Select Images</button>
+      <span class="filedata"></span>
+      <div class="progressBar">
+        <div class="progress"></div>
+      </div>
+      <button onclick="uploadImage()" class="upload">Upload</button>
+      <span class="loading">Loading...</span>
+      <img class="img"/>
+      <p class="paragraph_uploaded_files">You can see your uploaded files if you click the button "Uploaded files"</p>
+      <button class="button_uploaded_files"><a href="https://console.firebase.google.com/u/0/project/studysync-d5924/storage/studysync-d5924.appspot.com/files">Uploaded files</a></button>
+    </div>
+
+
+
+    <script>
+      const firebaseConfig = {
+        apiKey: "AIzaSyDhg_E0DMoRDVPc1xSaFcY71RVTqpo3kT0",
+        authDomain: "studysync-d5924.firebaseapp.com",
+        projectId: "studysync-d5924",
+        storageBucket: "studysync-d5924.appspot.com",
+        messagingSenderId: "388061601125",
+        appId: "1:388061601125:web:426629c900f4bf3181558c"
+      };
+
+      const app = firebase.initializeApp(firebaseConfig);
+
+      const storage = firebase.storage();
+
+      const inp = document.querySelector(".inp");
+      const progressbar = document.querySelector(".progress");
+      const img = document.querySelector(".img");
+      const fileData = document.querySelector(".filedata");
+      const loading = document.querySelector(".loading");
+      let file;
+      let fileName;
+      let progress;
+      let isLoading = false;
+      let uploadedFileName;
+      const selectImage = () => {
+        inp.click();
+      };
+      const getImageData = (e) => {
+        file = e.target.files[0];
+        fileName = file.name;
+        console.log("File name: " + fileName);
+        if (fileName) {
+          fileData.style.display = "inline-block";
+        }
+        fileData.innerHTML = fileName;
+        console.log(file, fileName);
+             
+      };
+
+      const uploadImage = () => {
+        if (fileName != undefined)
+        {
+          loading.style.display = "block";
+          const storageRef = storage.ref().child("myimages");
+          const folderRef = storageRef.child(fileName);
+          const uploadtask = folderRef.put(file);
+          uploadtask.on(
+            "state_changed",
+            (snapshot) => {
+              console.log("Snapshot", snapshot.ref.name);
+              progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+              progress = Math.round(progress);
+              progressbar.style.width = progress + "%";
+              progressbar.innerHTML = progress + "%";
+              uploadedFileName = snapshot.ref.name;
+            },
+            (error) => {
+              console.log(error);
+              alert("Something went wrong!")
+              
+            },
+            () => {
+              storage
+                .ref("myimages")
+                .child(uploadedFileName)
+                .getDownloadURL()
+                .then((url) => {
+                  console.log("URL", url);
+                  if (!url) {
+                    img.style.display = "none";
+                  } else {
+                    img.style.display = "block";
+                    setTimeout(3000)
+                    alert("adfghfrft")
+                    loading.style.display = "none";
+                  }
+                  img.setAttribute("src", url);
+                });
+              console.log("File uploaded successfully");
+            }
+          );
+        }
+        else 
+        {
+          alert("Please select an image");
+        }
+        }
+    </script>
+  </body>
+</html>

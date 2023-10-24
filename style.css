@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap');
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    background-color: rgb(66, 66, 66);
+}   
+
+li, a, button {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    color: #edf0f1;
+    text-decoration: none;
+    background-color: #000000;
+}
+
+.li1 {
+    background-color: #000000;
+}
+
+
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 10%;
+    background-color: #000000;
+}
+
+
+.navbar {
+    background-color: #000000;
+}
+
+.logo {
+    cursor: pointer;
+    height: 10%;
+    width: 10%;
+    border: none;
+    background-color: #000000;
+}
+
+.navlink {
+    list-style: none;
+    background-color: #000000;
+}
+
+.navlink li{
+    display: inline-block;
+    padding: 0px 50px;
+}
+
+.navlink li a{
+    transition: all 0.3s ease 0s;
+    background-color: #000000;
+    font-size: 25px;
+}
+
+.navlink li a:hover{
+    color: #0088a9;
+}
+
+button {
+    padding: 9px 25px;
+    background-color: rgba(0, 136, 169, 1);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 25px;
+    transition: all 0.3s ease 0s;
+    
+}
+
+
+button:hover {
+    background-color: rgb(70, 90, 95);
+}
+
+
+.features {
+    display: flex;
+    justify-content: space-around; /* Verteilt die Elemente gleichmäßig im verfügbaren Platz */
+    background-color: gray; /* Hintergrundfarbe für den Bereich */
+    padding: 10px 0; /* Innenabstand oben und unten */
+    color: rgb(0, 0, 0);
+    cursor: context-menu;
+}
+  
+.feature {
+    font-size: 18px; /* Schriftgröße */
+    font-weight: bold; /* Fettschrift */
+    text-align: center; /* Zentriert den Text */
+    padding: 10px 20px; /* Innenabstand für jedes Wort */
+    background-color: gray;
+    font-size: 40px;
+}
+
+.feature:hover {
+    transform: translateY(-5px);
+    transition: all 0.5s ease 0s;
+}
+  
